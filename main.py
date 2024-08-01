@@ -1,4 +1,9 @@
-from TxtSmrzr.pipeline.training_pipeline import DataIngestionTrainingPipeline
+import sys
+import os
+
+from TxtSmrzr.pipeline.training_pipeline import (DataIngestionTrainingPipeline,
+                                                 DataValidationTrainingPipeline)
+
 
 from TxtSmrzr.logging import logger
 
@@ -7,6 +12,16 @@ try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 
    data_ingestion = DataIngestionTrainingPipeline()
    data_ingestion.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+STAGE_NAME = "Data Validation stage"
+try:
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 
+   data_validation = DataValidationTrainingPipeline()
+   data_validation.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
         logger.exception(e)
